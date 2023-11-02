@@ -1,12 +1,15 @@
 from copy import deepcopy
 
 
+# region Read from file
 def read_matrix_from_file(filename: str) -> ([[float]], [float]):
     with open(filename, "r") as file:
         *matrix, vector = [[float(j) for j in i.split()] for i in file.read().split('\n') if len(i) != 0]
     return matrix, vector
 
 
+# endregion
+# region Matrix reverse
 def swap_matrix_rows(matrix: [[float]], first_row: int, second_row: int) -> None:
     for i in range(len(matrix[0])):
         matrix[first_row][i], matrix[second_row][i] = matrix[second_row][i], matrix[first_row][i]
@@ -83,6 +86,8 @@ def find_reversed_matrix(matrix: [[float]]) -> [[float], float]:
     return matrix_e, det
 
 
+# endregion
+# region Multiplication
 def multiply_matrix(matrix_1: [[float]], matrix_2: [[float]]) -> [[float]]:
     n, m = len(matrix_1), len(matrix_1[0])
     if n != len(matrix_2[0]) or m != len(matrix_2):
@@ -108,9 +113,45 @@ def scholar_multiply(vector_1: [float], vector_2: [float]) -> float:
     return sum(list(map(lambda x, y: x * y, vector_1, vector_2)))
 
 
+# endregion
+# region Matrix and vectors norms
+def vector_norm1(vector: [float]) -> float:
+    return sum(abs(i) for i in vector)
+
+
+def vector_norm2(vector: [float]) -> float:
+    return sum(abs(i) ** 2 for i in vector) ** 0.5
+
+
+def vector_norm3(vector: [float]) -> [float, int]:
+    mx = [abs(vector[0]), 0]
+    for i in range(1, len(vector)):
+        if abs(vector[i]) > mx[0]:
+            mx[0], mx[1] = abs(vector[i]), i
+    return mx
+
+
+def matrix_norm1(matrix: [[float]]) -> float:
+    return max([sum(abs(j) for j in i) for i in matrix])
+
+
+def matrix_norm2(matrix: [[float]]) -> float:
+    return max([sum(abs(matrix[j][i]) for j in range(len(matrix))) for i in range(len(matrix))])
+
+
+def matrix_norm3(matrix: [[float]]) -> float:
+    return sum(sum(j * j for j in i) for i in matrix) ** 0.5
+
+
+# endregion
+
 def find_transport_matrix(matrix: [[float]]) -> [[float]]:
     matrix_ = deepcopy(matrix)
     for i in range(len(matrix)):
         for j in range(i + 1, len(matrix)):
             matrix_[i][j], matrix_[j][i] = matrix_[j][i], matrix_[i][j]
     return matrix_
+
+
+def make_e_matrix(size: int) -> [[float]]:
+    return [[1 if j == i else 0 for j in range(size)] for i in range(size)]

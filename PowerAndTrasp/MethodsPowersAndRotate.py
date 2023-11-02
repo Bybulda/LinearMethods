@@ -1,8 +1,9 @@
+import sys
 from copy import deepcopy
-from UsefullFunc.UsefullPackage import read_matrix_from_file, multiply_matrix, find_transport_matrix, \
-    multiply_matrix_vector
 from math import sin, cos, atan, pi
-from UsefullFunc.UsefullPackage import scholar_multiply
+
+from UsefullFunc.UsefullPackage import multiply_matrix, find_transport_matrix, \
+    multiply_matrix_vector, read_matrix_from_file, scholar_multiply
 
 
 def divide_vector(vector: [float], divider: float) -> [float]:
@@ -10,7 +11,7 @@ def divide_vector(vector: [float], divider: float) -> [float]:
 
 
 def find_norm_vector(vector: [float]) -> float:
-    return sum(i * i for i in vector) ** 0.5
+    return max(vector)
 
 
 def find_max_non_diagonal(matrix: [[float]]) -> [float, int, int]:
@@ -44,27 +45,27 @@ def find_lim(matrix: [[float]]) -> float:
     return res ** 0.5
 
 
-def powers_solution(matrix: [[float]], epsilon: float) -> [[[float]], [float]]:
+def powers_solution(matrix: [[float]], epsilon: float) -> [[float], float]:
     matrix_y = matrix
-    lambdas, my_vectors = [], []
+    lambdas, my_vectors = None, None
     j = 0
-    while j != len(matrix):
-        last_two = []
-        y_prev = [1] * len(matrix_y)
-        while True:
-            if len(last_two) == 2:
-                if abs(last_two[1] - last_two[0]) < epsilon:
-                    lambdas.append(last_two[1])
-                    my_vectors.append(y_prev)
-                    j += 1
-                    break
-                z_k = multiply_matrix_vector(matrix_y, y_prev)
-                last_two[0], last_two[1] = last_two[1], z_k[j] / y_prev[j]
-                y_prev = divide_vector(z_k, find_norm_vector(z_k))
-            else:
-                z_k = multiply_matrix_vector(matrix_y, y_prev)
-                last_two.append(z_k[j] / y_prev[j])
-                y_prev = divide_vector(z_k, find_norm_vector(z_k))
+    last_two = []
+    y_prev = [1] * len(matrix)
+    while True:
+        if len(last_two) == 2:
+            if abs(last_two[1] - last_two[0]) < epsilon:
+                lambdas = last_two[1]
+                my_vectors = y_prev
+                j += 1
+                break
+            z_k = multiply_matrix_vector(matrix_y, y_prev)
+            #  подписать что это
+            last_two[0], last_two[1] = last_two[1], z_k[j] / y_prev[j]
+            y_prev = divide_vector(z_k, find_norm_vector(z_k))
+        else:
+            z_k = multiply_matrix_vector(matrix_y, y_prev)
+            last_two.append(z_k[j] / y_prev[j])
+            y_prev = divide_vector(z_k, find_norm_vector(z_k))
     return my_vectors, lambdas
 
 
@@ -81,12 +82,15 @@ def rotation_solution(matrix: [[float]], epsilon: float) -> [[[float]], [float]]
         matrix_res_u = multiply_matrix(matrix_res_u, matrix_u)
         # A^k+1 = U^t*A^k^U
         matrix_a = multiply_matrix(multiply_matrix(find_transport_matrix(matrix_u), matrix_a), matrix_u)
+    result_vector = [[matrix_res_u[j][i] for j in range(len(matrix_res_u)) for i in range(len(matrix_res_u))]]
+    if scholar_multiply(matrix_res_u[0], matrix_res_u[1]) > epsilon or scholar_multiply(matrix_res_u[0], matrix_res_u[
+        2]) > epsilon or scholar_multiply(matrix_res_u[1], matrix_res_u[2]) > epsilon:
+        raise Exception("Something went wrong for this matrix!")
     return matrix_res_u, [matrix_a[i][i] for i in range(len(matrix_a))]
 
 
 if __name__ == '__main__':
-    a = [[4, 2, 1], [2, 5, 3], [1, 3, 6]]
-    b = [[5, 1, 2], [1, 4, 1], [2, 1, 3]]
-    phis, vector = rotation_solution(a, 0.1)
-    print(scholar_multiply(phis[1], phis[2]))
-    # print(powers_solution(b, 0.1))
+    matrix, epsilon = read_matrix_from_file(sys.argv[1])
+    vector, num = powers_solution(matrix, epsilon[0])
+    print("Solution for Rotation method: ", *rotation_solution(matrix, epsilon[0]))
+    print("Solution for Powers method spectral radius: ", [i * 0.81 for i in vector], num, sep=" ")

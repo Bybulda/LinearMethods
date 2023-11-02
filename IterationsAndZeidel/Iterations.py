@@ -1,5 +1,7 @@
+import sys
 from copy import deepcopy
-from UsefullFunc.UsefullPackage import read_matrix_from_file
+
+from UsefullFunc.UsefullPackage import read_matrix_from_file, matrix_norm1
 
 
 def dot_product(a, b):
@@ -39,12 +41,12 @@ def prod_matrix(a, vector):
 
 def gauss_seidel(a, b, epsilon):
     a_norm, b_norm = normal_view(a, b)
-    alpha_norm = max(max(i) for i in a_norm)
+    alpha_norm = matrix_norm1(a_norm)
     x_start = [0] * len(a_norm)
     x_new = b_norm[:]
 
     while True:
-        if norm(subtract_vectors(x_new, x_start)) <= epsilon:
+        if alpha_norm / (1 - alpha_norm) * norm(subtract_vectors(x_new, x_start)) <= epsilon:
             break
         x_start = x_new[:]
         for j in range(len(a_norm)):
@@ -58,13 +60,13 @@ def gauss_seidel(a, b, epsilon):
 
 def simple_iteration(a, b, epsilon):
     a_norm, b_norm = normal_view(a, b)
-    alpha_norm = max(max(i) for i in a_norm)
+    alpha_norm = matrix_norm1(a_norm)
     x_start = [0] * len(a_norm)
     max_iters = 100000
     x_new = b_norm[:]
 
     for j in range(max_iters):
-        if norm(subtract_vectors(x_new, x_start)) > epsilon:
+        if alpha_norm / (1 - alpha_norm) * norm(subtract_vectors(x_new, x_start)) > epsilon:
             x_start = x_new[:]
             x_new = sum_vectors(prod_matrix(a_norm, x_new), b_norm)
         else:
@@ -73,9 +75,9 @@ def simple_iteration(a, b, epsilon):
 
 
 if __name__ == '__main__':
-    a, b = read_matrix_from_file('matrix.txt')
+    a, b = read_matrix_from_file(sys.argv[1])
 
     solution = simple_iteration(a, b, 1e-6)
     sol = gauss_seidel(a, b, 1e-6)
-    print("Solution iters:", [round(i, 6) for i in solution])
-    print("Solution Zeidel", [round(i, 6) for i in sol])
+    print("Solution iters:", [round(i, 20) for i in solution])
+    print("Solution Zeidel", [round(i, 20) for i in sol])

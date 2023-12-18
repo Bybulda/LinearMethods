@@ -48,7 +48,7 @@ def runge_romberg_error(func, method, h1, h2, x0, xk, p, optional=None):
 
 if __name__ == '__main__':
     x0, xk = -1, 1
-    h1, h2 = 0.5, 0.25
+    h1, h2 = 0.001, 0.0005
     print(
         f'Результаты вычисления определенного интеграла функции y = x / (x^3 + 8) на отрезке [-1, 1] с h1 = 0.5 и h2 = 0.25')
     print(f'Решение методом Симпсона: \nh1: {simpson_rule(y, x0, xk, h1)}\th2: {simpson_rule(y, x0, xk, h2)}')

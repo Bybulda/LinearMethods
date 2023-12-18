@@ -78,5 +78,5 @@ def main():
 if __name__ == '__main__':
     # interval = [0.4, 0.6]
     interval = [0.5, 1]
-    print(newthon_ode(interval, 0.001))
-    print(iteration_ode(interval, 0.001))
+    print(newthon_ode(interval, 0.0001))
+    print(iteration_ode(interval, 0.0001))

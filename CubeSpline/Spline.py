@@ -50,18 +50,20 @@ def get_spline(x_i, f_i, x):
 
 if __name__ == '__main__':
 
-    f_i = [0.0, 0.72235, 1.5609, 2.8459, 7.7275]
-    x_i = [0.0, 0.9, 1.8, 2.7, 3.6]
+    f_i = [0.0, 0.97943, 1.8415, 2.4975, 2.9093]
+    x_i = [0.0, 0.5, 1, 1.5, 2]
 
-
-    x_points = np.array([0.0, 0.9, 1.8, 2.7, 3.6])
+    res = get_spline(x_i, f_i, 0.8)
+    print(res)
+    x_points = np.linspace(x_i[0], x_i[-1], 1000)
 
     # Генерируем значения сплайна для построения графика
     y_spline = [get_spline(x_i, f_i, x)[0] for x in x_points]
+    y_spline1 = [get_spline(x_i, f_i, x)[0] for x in x_i]
 
     # Строим график
     plt.plot(x_points, y_spline, label='Cubic Spline')
-    plt.scatter(x_points, y_spline, c='red', label='Spline Points')
+    plt.scatter(x_i, y_spline1, c='red', label='Spline Points')
     plt.legend()
     plt.title('Cubic Spline Function')
     plt.xlabel('X')

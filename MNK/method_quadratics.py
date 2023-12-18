@@ -50,14 +50,14 @@ def mnk(x_i, f_i):
 
 
 def plot_graph(x_i, f_i, coeffs1, coeffs2):
-    x = np.linspace(x_i[0], x_i[-1], 10)
+    x = np.linspace(x_i[0], x_i[-1], 100)
     y1 = [func_power1(y, *coeffs1) for y in x]
     y2 = [func_power2(y, *coeffs2) for y in x]
-    y3 = np.linspace(f_i[0], f_i[-1], 10)
-    plt.plot(x, y1, label='Cubic Spline 1')
-    plt.scatter(x, y1, c='red', label='Spline Points')
-    plt.plot(x, y2, label='Cubic Spline 2')
-    plt.scatter(x, y3, label='Points', c='blue')
+    y3 = np.linspace(f_i[0], f_i[-1], 100)
+    plt.scatter(x_i, f_i, c='red', label='Function points')
+    plt.plot(x, y1, label='Polynom first pow')
+    plt.plot(x, y2, label='Polynom second pow')
+    # plt.scatter(x, y3, label='Points', c='blue')
     plt.legend()
     plt.title('Cubic Spline Function')
     plt.xlabel('X')

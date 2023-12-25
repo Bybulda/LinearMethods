@@ -20,7 +20,7 @@ def func_power2(x, a0, a1, a2):
 
 
 def quadratic_errors(func, x_i, f_i, coeffs):
-    return sum(math.pow((func(x_i[i], *coeffs) * f_i[i]), 2) for i in range(len(x_i)))
+    return sum(math.pow((func(x_i[i], *coeffs) - f_i[i]), 2) for i in range(len(x_i)))
 
 
 def get_poly(x_i, f_i, power):

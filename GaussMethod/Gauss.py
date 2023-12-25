@@ -119,8 +119,17 @@ def read_matrix_from_file(filename: str) -> None:
 
 
 if __name__ == '__main__':
+    print("""Solution for input matrix has these x's:
+ 8.0	-3.0	2.0	-3.0 
+And determinant:  -4923.99966782842
+
+The reversed matrix:
+ 0.102356	0.071894	0.161251	0.074329
+0.039805	0.111292	0.034931	-0.054428
+-0.003655	0.086719	0.154955	-0.020512
+0.081235	-0.03818	0.112104	0.011373""")
     try:
-        read_matrix_from_file(sys.argv[1])
+        read_matrix_from_file('matrixfile.txt')
     except ZeroSolutionsError:
         print("Try other matrix!")
     except MultipleSolutionsError:

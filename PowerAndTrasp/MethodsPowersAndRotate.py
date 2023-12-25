@@ -90,7 +90,8 @@ def rotation_solution(matrix: [[float]], epsilon: float) -> [[[float]], [float]]
 
 
 if __name__ == '__main__':
-    matrix, epsilon = read_matrix_from_file(sys.argv[1])
+    matrix, epsilon = read_matrix_from_file('matrix.txt')
     vector, num = powers_solution(matrix, epsilon[0])
-    print("Solution for Rotation method: ", *rotation_solution(matrix, epsilon[0]))
+    rotation = rotation_solution(matrix, epsilon[0])[0]
+    print("Solution for Rotation method: ", '\n'.join([' '.join(str(rotation[j][i]) for j in range(len(rotation))) for i in range(len(rotation))]), sep='\n')
     print("Solution for Powers method spectral radius: ", [i * 0.81 for i in vector], num, sep=" ")

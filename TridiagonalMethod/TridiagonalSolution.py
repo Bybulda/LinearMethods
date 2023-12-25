@@ -59,6 +59,6 @@ def read_from_file(file: str) -> None:
 
 if __name__ == '__main__':
     try:
-        read_from_file(sys.argv[1])
+        read_from_file('matrixfile.txt')
     except NotANeededMatrix:
         print("Try another one!")

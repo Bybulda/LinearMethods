@@ -53,16 +53,20 @@ def gen_newthon_polynom(func: callable, points: [float], x_: float) -> ([float],
 if __name__ == '__main__':
     x1 = [i * pi / 6 for i in range(6)]
     x2 = [0, pi / 6, pi / 4, pi / 2]
+    res1 = gen_newthon_polynom(function, x1, 1)[:-1]
+    res2 = gen_newthon_polynom(function, x2, 1)[:-1]
+    res3 = gen_lagranzh_polynom(function, x1, 1)[:-1]
+    res4 = gen_lagranzh_polynom(function, x2, 1)[:-1]
     print(f'Набор точек X1: {x1}\nНабор точек X2: {x2}')
 
-    print('Значение полинома Ньютона для набора точек X1: {0}\nПогрешность метода: {1}\nПостроенный полином: {2}'.format(
-        *gen_newthon_polynom(function, x1, 1)))
-    print('Значение полинома Ньютона для набора точек X2: {}\nПогрешность метода: {}\nПостроенный полином: {}'.format(
-        *gen_newthon_polynom(function, x2, 1)))
+    print('Значение полинома Ньютона для набора точек X1: {0}\nПогрешность метода: {1}'.format(
+        *res1))
+    print('Значение полинома Ньютона для набора точек X2: {}\nПогрешность метода: {}'.format(
+        *res2))
 
     print(
-        'Значение полинома Лагранжа для набора точек X1: {}\nПогрешность метода: {}\nПостроенный полином: {}'.format(
-            *gen_lagranzh_polynom(function, x1, 1)))
+        'Значение полинома Лагранжа для набора точек X1: {}\nПогрешность метода: {}'.format(
+            *res3))
     print(
-        'Значение полинома Лагранжа для набора точек X2: {}\nПогрешность метода: {}\nПостроенный полином: {}'.format(
-            *gen_lagranzh_polynom(function, x2, 1)))
+        'Значение полинома Лагранжа для набора точек X2: {}\nПогрешность метода: {}'.format(
+            *res4))

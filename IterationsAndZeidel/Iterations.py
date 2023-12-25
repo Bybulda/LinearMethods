@@ -75,7 +75,7 @@ def simple_iteration(a, b, epsilon):
 
 
 if __name__ == '__main__':
-    a, b = read_matrix_from_file(sys.argv[1])
+    a, b = read_matrix_from_file('matrix.txt')
 
     solution = simple_iteration(a, b, 1e-6)
     sol = gauss_seidel(a, b, 1e-6)

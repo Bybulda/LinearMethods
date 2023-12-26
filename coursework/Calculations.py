@@ -2,10 +2,6 @@ from Constants import *
 from math import log, exp
 
 
-def find_g0(t: int, element: str):
-    return G[element.upper()][t]
-
-
 def func1(zh, zo, t, conc):
     return 2 * concentration_h2(zh, t) + concentration_h(zh, t) + concentration_oh(zh, zo, t) + \
            2 * concentration_h20(zh, zo, t) - conc

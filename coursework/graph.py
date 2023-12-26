@@ -9,7 +9,7 @@ def equation1(x, y, lst_g):
     arg2 = (x - lst_g[1]) / (R*1100)
     arg3 = (x + y - lst_g[2]) / (R*1100)
     arg4 = (2 * x + y - lst_g[3]) / (R*1100)
-    res = 1/(R*1100) * (2 * np.exp(arg1) + np.exp(arg2) + np.exp(arg3) + 2 * np.exp(arg4)) - 0.001
+    res = 1/(R*1100) * (2 * np.exp(arg1) + np.exp(arg2) + np.exp(arg3) + 2 * np.exp(arg4)) - 1
     return res
 
 
@@ -18,7 +18,7 @@ def equation2(x, y, lst_g):
     arg2 = (y - lst_g[1]) / (R*1100)
     arg3 = (x + y - lst_g[2]) / (R*1100)
     arg4 = (2 * x + y - lst_g[3]) / (R*1100)
-    res = 1/(R*1100) * (2 * np.exp(arg1) + np.exp(arg2) + np.exp(arg3) + np.exp(arg4)) - 0.0001
+    res = 1/(R*1100) * (2 * np.exp(arg1) + np.exp(arg2) + np.exp(arg3) + np.exp(arg4)) - 1
     return res
 
 
@@ -36,8 +36,8 @@ plt.figure(figsize=(8, 6))
 plt.contour(X1, X2, F1, levels=0, cmap='viridis')
 plt.contour(X1, X2, F2, levels=0, cmap='viridis')
 
-plt.colorbar(label='Значения f1 и f2')
-plt.xlabel('X1')
-plt.ylabel('X2')
-plt.title('Контурный график f1 и f2')
+plt.colorbar(label='\nЗначения F1 и F2')
+plt.xlabel('\nX1')
+plt.ylabel('X2\n')
+plt.title('Контурный график F1 и F2\n')
 plt.show()

@@ -12,8 +12,8 @@ def equation2(x1, x2, a):
 a = 3
 
 # Создание сетки значений x1 и x2
-x1 = np.linspace(-10, 10, 400)
-x2 = np.linspace(-10, 10, 400)
+x1 = np.linspace(-100, 100, 400)
+x2 = np.linspace(-100, 100, 400)
 
 # Создание сетки для уравнений
 X1, X2 = np.meshgrid(x1, x2)

@@ -21,4 +21,4 @@ def fill_table(key_argv, filename_argv):
 
 
 if __name__ == '__main__':
-    fill_table(["H2O", "H2", "H", "OH", "O2", "O"], ["h2o", "h2", "h", "oh", "o2", "o"])
+    fill_table(["H2O", "H2", "H", "OH", "O2", "O"], ["data/h2o", "data/h2", "data/h", "data/oh", "data/o2", "data/o"])

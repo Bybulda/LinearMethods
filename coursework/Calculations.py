@@ -4,12 +4,12 @@ from math import log, exp
 
 def func1(zh, zo, t, conc):
     return 2 * concentration_h2(zh, t) + concentration_h(zh, t) + concentration_oh(zh, zo, t) + \
-           2 * concentration_h20(zh, zo, t) - conc
+        2 * concentration_h20(zh, zo, t) - conc
 
 
 def func2(zh, zo, t, conc):
     return 2 * concentration_o2(zo, t) + concentration_o(zo, t) + concentration_oh(zh, zo, t) + \
-           concentration_h20(zh, zo, t) - conc
+        concentration_h20(zh, zo, t) - conc
 
 
 def concentration_h(zh, T):

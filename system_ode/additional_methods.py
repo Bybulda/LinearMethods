@@ -23,22 +23,22 @@ def phi2_t(x1, x2):
 
 
 def f1(x1, x2):
-    return x1 - math.cos(x2) - 3
+    return 0.1*(x1*x1) + x1 + 0.2*x2*x2 - 0.3
 
 def f2(x1, x2):
-    return x2 - math.sin(x1) - 3
+    return 0.2*(x1*x1) + x2 - 0.1*x2*x1 - 0.7
 
 def df1_dx1(x1, x2):
-    return 1
+    return 0.2*x1 + 1
 
 def df1_dx2(x1, x2):
-    return math.sin(x2)
+    return 0.4*x2
 
 def df2_dx1(x1, x2):
-    return -math.cos(x1)
+    return 0.4*x1 - 0.1*x2
 
 def df2_dx2(x1, x2):
-    return 1
+    return 1 - 0.1*x1
 
 
 # Функция для решения системы линейных уравнений A * x = b методом Гаусса (из лабы 1.1)

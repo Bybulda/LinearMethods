@@ -10,7 +10,7 @@ def load_data(filename, key, table):
         *list_numbers, h0, delta = [float(i.strip()) for i in file.readlines()]
         for value in range(len(list_numbers)):
             temperature = 1100 + value * 100
-            table[key][temperature] = count_g0(delta, h0, temperature, list_numbers[value])
+            table[key][temperature] = count_g0(h0, delta, temperature, list_numbers[value])
 
 
 def fill_table(key_argv, filename_argv):

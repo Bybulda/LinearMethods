@@ -1,7 +1,7 @@
 import json
 
-from Calculations import *
-from systemode import newton_method
+from coursework.constants_equations.Calculations import *
+from coursework.methods.systemode import newton_method
 
 
 def json_write(filename: str, args: dict):
@@ -32,7 +32,7 @@ def fancy_write(filename: str, args: dict):
 
 
 def process_reaction(temperature, concentration_o0, concentration_h0):
-    start_zh_zo = [-0.319, 0.424]
+    start_zh_zo = [-10, -10]
     zh_zo, iters = newton_method(func1, func2, f1_dzh, f1_dzo, f2_dzh, f2_dzo, start_zh_zo, 100, temperature,
                                  concentration_h0, concentration_o0)
     zh, zo = zh_zo
@@ -41,11 +41,8 @@ def process_reaction(temperature, concentration_o0, concentration_h0):
     oh, h2o = concentration_oh(zh, zo, temperature), concentration_h20(zh, zo, temperature)
     answer = {"h2o": h2o, "oh": oh, "h": h, "o": o, "h2": h2, "o2": o2, "Ch": concentration_h0, "Co": concentration_o0,
               "T": temperature, 's1': 2 * h2 + h + oh + 2 * h2o, 's2': 2 * o2 + o + oh + h2o}
-    fancy_write("result.txt", answer)
-    json_write("result.json", answer)
-    print(h, h2, o, o2, oh, h2o)
-    print(2 * h2 + h + oh + 2 * h2o)
-    print(2 * o2 + o + oh + h2o)
+    # fancy_write(f"{temperature}.txt", answer)
+    json_write(f"data_0.2/{temperature}.json", answer)
 
 
 if __name__ == '__main__':
@@ -53,7 +50,10 @@ if __name__ == '__main__':
     concentration_o0 = float(input())
     print("Пожалуйста, введите концентрацию H: ")
     concentration_h0 = float(input())
-    print(
-        "Пожалуйста, введите значение температуры в диапазоне 1000 < T < 6000, вводимо число должно быть кратно 100: ")
-    temperature = int(input())
-    process_reaction(temperature, concentration_o0, concentration_h0)
+    m = (concentration_h0 * 2.0158 + concentration_o0 * 31.9988) /1000
+    conch = 2*concentration_h0 / m
+    conco = 2*concentration_o0 / m
+    # print(
+    #     "Пожалуйста, введите значение температуры в диапазоне 1000 < T < 6000, вводимо число должно быть кратно 100: ")
+    for temperature in range(1100, 6000, 100):
+        process_reaction(temperature, conco, conch)
